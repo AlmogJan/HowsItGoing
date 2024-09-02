@@ -1,0 +1,32 @@
+/* Breakpoint mixins */
+
+@mixin for-mobile-layout {
+  @media (max-width: $padded-break-mobile) {
+    @content;
+  }
+}
+
+@mixin for-narrow-layout {
+  @media (max-width: $padded-break-narrow) {
+    @content;
+  }
+}
+
+@mixin for-normal-layout {
+  @media (min-width: $padded-break-normal) {
+    @content;
+  }
+}
+
+@mixin quicksand($uniquifier, $weight) {
+  .quicksand-#{$uniquifier} {
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: $weight;
+    font-style: normal;
+  }
+}
+@include quicksand("light", 300);
+@include quicksand("regular", 400);
+@include quicksand("medium", 500);
+@include quicksand("bold", 700);

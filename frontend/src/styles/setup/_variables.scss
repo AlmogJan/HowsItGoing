@@ -1,0 +1,12 @@
+$layoutPadding: 8px;
+
+// Breakpoints
+$mobile-breakpoint: 460px;
+$narrow-breakpoint: 920px;
+$normal-breakpoint: 960px;
+
+$padded-break-mobile: $mobile-breakpoint + $layoutPadding * 2;
+$padded-break-narrow: $narrow-breakpoint + $layoutPadding * 2;
+$padded-break-normal: $normal-breakpoint + $layoutPadding * 2;
+
+$background-color: black;

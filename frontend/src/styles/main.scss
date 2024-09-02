@@ -1,0 +1,12 @@
+// setup
+@import "./setup/variables.scss";
+@import "./setup/mixins.scss";
+@import "./setup/typography.scss";
+
+// basics
+@import "./basics/base.scss";
+@import "./basics/helpers";
+@import "./basics/layouts";
+
+// components
+@import "./App.scss";
