@@ -9,4 +9,9 @@ $padded-break-mobile: $mobile-breakpoint + $layoutPadding * 2;
 $padded-break-narrow: $narrow-breakpoint + $layoutPadding * 2;
 $padded-break-normal: $normal-breakpoint + $layoutPadding * 2;
 
-$background-color: black;
+$background-color: rgb(12, 19, 24);
+$secondary-color: rgb(33, 46, 53);
+$product-color: rgb(4, 167, 132);
+$svg-color: rgb(173, 186, 193);
+$hover-color: rgb(42, 57, 66);
+$border-color: rgb(48, 61, 69);
