@@ -11,6 +11,9 @@ export function App() {
   const [username, setUsername] = useState('')
   const [isUsername, setIsUsername] = useState(false)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [editMsgId, setEditMsgId] = useState<string>('')
+  const [editMsgContent, setEditMsgContent] = useState<string>('')
+  const [isEditing, setIsEditing] = useState<Boolean>(false)
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -68,6 +71,12 @@ export function App() {
   async function deleteMessage(messageId: string) {
     await axios.delete(`http://localhost:3030/api/messages/${messageId}`)
   }
+  async function editMessage(messageId: string, content: string) {
+    await axios.put(`http://localhost:3030/api/messages/${messageId}`, { content });
+    setIsEditing(false)
+    setEditMsgId('')
+    setEditMsgContent('')
+  }
   return (
     <div className="app">
       <div className="chat">
@@ -105,14 +114,29 @@ export function App() {
                 }}
               >
                 <MenuItem
-                  onClick={handleClose}>edit</MenuItem>
+                  onClick={() => {
+                    handleClose
+                    setIsEditing(true)
+                    setEditMsgId(message.id)
+                    setEditMsgContent(message.content)
+                  }}>edit</MenuItem>
                 <MenuItem onClick={() => {
                   handleClose
                   deleteMessage(message.id)
                 }} >remove</MenuItem>
               </Menu>
               <div>
-                <strong>{message.name}:</strong> {message.content}
+                <strong>{message.name}:</strong>
+
+                {isEditing ?
+                  <div><input type="text" value={editMsgContent} onChange={(ev) => setEditMsgContent(ev.target.value)} />
+                    <button onClick={() => {
+                      editMessage(editMsgId, editMsgContent)
+                    }}>edit</button>
+                  </div>
+
+                  : <span>{message.content}</span>}
+
 
               </div>
             </div>
