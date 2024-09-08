@@ -3,7 +3,10 @@ import { Message } from "./services/messages/Message.entity";
 import axios from "axios";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Button } from "@mui/material";
+import Button from '@mui/joy/Button';
+import SvgIcon from '@mui/joy/SvgIcon';
+import { styled } from '@mui/joy';
+import Avatar from "@mui/material/Avatar";
 
 export function App() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -13,7 +16,7 @@ export function App() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [editMsgId, setEditMsgId] = useState<string>('')
   const [editMsgContent, setEditMsgContent] = useState<string>('')
-  const [isEditing, setIsEditing] = useState<Boolean>(false)
+  const [userImg, setUserImg] = useState<FileList | null>(null)
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -21,6 +24,17 @@ export function App() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const VisuallyHiddenInput = styled('input')`
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  white-space: nowrap;
+  width: 1px;
+`;
 
 
   useEffect(() => {
@@ -73,7 +87,6 @@ export function App() {
   }
   async function editMessage(messageId: string, content: string) {
     await axios.put(`http://localhost:3030/api/messages/${messageId}`, { content });
-    setIsEditing(false)
     setEditMsgId('')
     setEditMsgContent('')
   }
@@ -81,16 +94,8 @@ export function App() {
     <div className="app">
       <div className="chat">
         <div className="contact-info">
-          {isUsername ? <div>hi,{username}</div>
-            : <div>
-              <input type="text" value={username} placeholder="Enter Username" onChange={(ev) => setUsername(ev.target.value)} />
-              <button onClick={() => {
-                setIsUsername(true)
-              }}>
-                enter
-              </button>
-            </div>
-          }
+          {userImg ? <Avatar alt="Remy Sharp" src="" /> : <Avatar />}
+          <span>{username ? username : "Guest"}</span>
         </div>
         <div className="messages">
           {messages.map((message, index) => (
@@ -116,28 +121,24 @@ export function App() {
                 <MenuItem
                   onClick={() => {
                     handleClose
-                    setIsEditing(true)
                     setEditMsgId(message.id)
                     setEditMsgContent(message.content)
                   }}>edit</MenuItem>
                 <MenuItem onClick={() => {
-                  handleClose
+                  handleClose()
                   deleteMessage(message.id)
                 }} >remove</MenuItem>
               </Menu>
               <div>
                 <strong>{message.name}:</strong>
 
-                {isEditing ?
+                {message.id === editMsgId ?
                   <div><input type="text" value={editMsgContent} onChange={(ev) => setEditMsgContent(ev.target.value)} />
                     <button onClick={() => {
                       editMessage(editMsgId, editMsgContent)
                     }}>edit</button>
                   </div>
-
                   : <span>{message.content}</span>}
-
-
               </div>
             </div>
           ))}
@@ -153,8 +154,49 @@ export function App() {
           </button>
         </div>
       </div>
-      <div className="chats">chats</div>
+      <div className="chats">
+        {isUsername ? <div>hi,{username}</div>
+          : <div>
+            <input type="text" value={username} placeholder="Enter Username" onChange={(ev) => setUsername(ev.target.value)} />
+            <button onClick={() => {
+              setIsUsername(true)
+            }}>
+              enter
+            </button>
+          </div>
+        }
+        <Button
+          component="label"
+          role={undefined}
+          tabIndex={-1}
+          variant="outlined"
+          startDecorator={
+            <SvgIcon>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
+                />
+              </svg>
+            </SvgIcon>
+          }
+        >
+          Upload a file
+          <VisuallyHiddenInput type="file" onChange={(ev) => {
+            setUserImg(ev.target.files)
+          }} />
+        </Button>
+
+      </div>
       <div className="aside">aside</div>
     </div>
   );
 }
+

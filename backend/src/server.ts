@@ -59,7 +59,7 @@ app.put('/api/messages/:id', (req: Request, res: Response) => {
         broadcastMessages();
         res.json(messages[messageIndex]);
     } else {
-        res.sendStatus(404); // Not Found
+        res.sendStatus(404);
     }
 });
 
