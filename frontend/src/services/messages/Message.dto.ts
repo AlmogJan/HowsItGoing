@@ -1,4 +1,4 @@
-import { ContentType } from "./message.entity";
+import { ContentType } from "./Message.entity";
 
 export interface MessageDto {
     chatId: string,

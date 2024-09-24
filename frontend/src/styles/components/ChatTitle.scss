@@ -1,0 +1,9 @@
+.chat-title {
+  display: flex;
+  align-items: center;
+  margin-block-end: 1.5rem;
+}
+.chat-name {
+  margin-inline-start: 1rem;
+  @include headline(1.5rem);
+}

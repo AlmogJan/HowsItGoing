@@ -9,9 +9,12 @@ $padded-break-mobile: $mobile-breakpoint + $layoutPadding * 2;
 $padded-break-narrow: $narrow-breakpoint + $layoutPadding * 2;
 $padded-break-normal: $normal-breakpoint + $layoutPadding * 2;
 
-$background-color: rgb(12, 19, 24);
-$secondary-color: rgb(33, 46, 53);
-$product-color: rgb(4, 167, 132);
-$svg-color: rgb(173, 186, 193);
-$hover-color: rgb(42, 57, 66);
+$background-color: rgb(19, 19, 19);
+$secondary-color: rgb(32, 35, 40);
+$product-color: rgb(106, 138, 253);
+$text-color: rgb(255, 255, 255);
+$svg-color: rgb(169, 174, 186);
+$svg-filter: invert(75%) sepia(12%) saturate(225%) hue-rotate(184deg)
+  brightness(93%) contrast(86%);
+$hover-color: rgb(46, 51, 61);
 $border-color: rgb(48, 61, 69);

@@ -1,0 +1,41 @@
+.message {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  margin-block-end: 12px;
+}
+.message-info {
+  margin-block-end: 0.5rem;
+}
+.user-msg-name {
+  @include text(1rem);
+  padding-inline-end: 4px;
+}
+.user-msg-date {
+  @include secondary-text(00.75rem);
+}
+.message-display {
+  display: flex;
+  align-items: center;
+}
+
+.message-content {
+  display: flex;
+  align-items: center;
+  background-color: $hover-color;
+  padding-inline: 0.75rem;
+  padding-block: 0.75rem;
+  margin-inline-start: 0.5rem;
+  border-radius: 3rem;
+}
+.message-button-img {
+  filter: $svg-filter;
+}
+
+.css-99wn1p-MuiList-root-MuiMenu-list {
+  background-color: $hover-color !important;
+}
+
+.css-1apkmlw-MuiButtonBase-root-MuiButton-root {
+  padding: 0 !important;
+}

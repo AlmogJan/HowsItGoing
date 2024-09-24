@@ -26,7 +26,61 @@
     font-style: normal;
   }
 }
+
 @include quicksand("light", 300);
 @include quicksand("regular", 400);
 @include quicksand("medium", 500);
 @include quicksand("bold", 700);
+
+@mixin button() {
+  background-color: transparent;
+  border: none;
+}
+
+@mixin button-svg() {
+  height: 1.5rem;
+  width: 1.5rem;
+  filter: $svg-filter;
+}
+
+@mixin text-input() {
+  background-color: transparent;
+  border: 0;
+  color: $text-color;
+  ::placeholder {
+    color: $svg-color;
+  }
+  :focus {
+    outline: none;
+    border: none;
+  }
+}
+
+@mixin text-input-container() {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  background-color: $secondary-color;
+  border: 1px solid $svg-color;
+  border-radius: 48px;
+}
+
+@mixin headline($size) {
+  color: $text-color;
+  font-size: $size;
+  font-weight: 700;
+}
+
+@mixin text($size, $weight: 500) {
+  color: $text-color;
+  font-size: $size;
+  font-weight: $weight;
+}
+
+@mixin secondary-text($size) {
+  color: $svg-color;
+  font-size: $size;
+  font-weight: 400;
+}

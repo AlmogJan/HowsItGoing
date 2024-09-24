@@ -49,3 +49,18 @@
 .display-none {
   display: none;
 }
+
+.svg-button {
+  @include button();
+  img {
+    @include button-svg();
+  }
+}
+
+.text-input {
+  @include text-input();
+}
+
+.text-input-container {
+  @include text-input-container();
+}
