@@ -7,6 +7,7 @@
 .message-info {
   margin-block-end: 0.5rem;
 }
+
 .user-msg-name {
   @include text(1rem);
   padding-inline-end: 4px;
@@ -28,6 +29,12 @@
   margin-inline-start: 0.5rem;
   border-radius: 3rem;
 }
+
+.message-content-self {
+  @extend .message-content;
+  background-color: $product-color;
+}
+
 .message-button-img {
   filter: $svg-filter;
 }

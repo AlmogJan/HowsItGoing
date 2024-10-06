@@ -14,8 +14,10 @@ type MessageProps = {
     index: number
 }
 export function MessageComp({ message, index }: MessageProps) {
-    const currChat = useSelector((state: RootState) => state.currentChat.chat)
-    const loggedInUser = useSelector((state: RootState) => state.user.user)
+    const currentChatId = useSelector((state: RootState) => state.currentChat.chatId)
+    const chats = useSelector((state: RootState) => state.chats.chats)
+    const currentChat = currentChatId ? chats[currentChatId] : undefined
+    const userId = useSelector((state: RootState) => state.user.user.id)
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [editMsgId, setEditMsgId] = useState<string>('')
@@ -37,13 +39,18 @@ export function MessageComp({ message, index }: MessageProps) {
     }, [])
 
     async function editMessage() {
-        let dto: MessageDto = {
-            contentType: ContentType.Text,
-            content: editMsgContent
+        if (currentChat) {
+            let dto: MessageDto = {
+                chatId: currentChat?.id,
+                contentType: ContentType.Text,
+                content: editMsgContent
+            }
+            await chatService.editMessage(message.id, dto)
+            setEditMsgId('')
+            setEditMsgContent('')
+        } else {
+            //..... handle error
         }
-        await chatService.editMessage(message.id, dto)
-        setEditMsgId('')
-        setEditMsgContent('')
     }
 
     async function getUser(userId: string) {
@@ -55,15 +62,29 @@ export function MessageComp({ message, index }: MessageProps) {
         setMessageUser(user)
     }
 
+    function isSelfMessage() {
+        return message.userId === userId;
+    }
+
+    const selfMessageSuffix = isSelfMessage() ? '-self' : ''
+
     return <div className="message" key={index}>
-        <div className="message-info">
-            <strong className="user-msg-name">{messageUser?.displayName}</strong>
-            <span className="user-msg-date">{utilService.formatDate(message.timestamp)}, </span>
-            <span className="user-msg-date">{utilService.formatHour(message.timestamp)}</span>
+        <div dir={isSelfMessage() ? "rtl" : "ltr"} className="message-info">
+            {
+                isSelfMessage() ? <>
+                    <span className="user-msg-date">{utilService.formatDate(message.timestamp)}, </span>
+                    <span className="user-msg-date">{utilService.formatHour(message.timestamp)}</span>
+                </> : <>
+                    <strong className="user-msg-name">{messageUser?.displayName}</strong>
+                    <span className="user-msg-date">{utilService.formatDate(message.timestamp)}, </span>
+                    <span className="user-msg-date">{utilService.formatHour(message.timestamp)}</span>
+                </>
+            }
+
         </div>
-        <div className="message-display">
+        <div dir={isSelfMessage() ? "rtl" : "ltr"} className={"message-display"}>
             <Avatar src={`${messageUser?.profilePicture}`} alt={`${messageUser?.name.toUpperCase()}`} />
-            <div className="message-content" onMouseEnter={() => setMessageHovered(message.id)} onMouseLeave={() => setMessageHovered(undefined)}>
+            <div className={`message-content${selfMessageSuffix}`} onMouseEnter={() => setMessageHovered(message.id)} onMouseLeave={() => setMessageHovered(undefined)}>
                 <Button
                     id="basic-button"
                     aria-controls={open ? 'basic-menu' : undefined}

@@ -1,8 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Chat } from "./services/chat/chat.entity";
 import { chatService } from "./services/chat/chat.service";
 import { userService } from "./services/user/user.service";
-import { LoginDto, UserDto } from "./services/user/user.dto";
 import { ChatList } from "./components/ChatList";
 import { ChatComp } from "./components/ChatComp";
 import { ChatDetails } from "./components/ChatDetails";
@@ -11,11 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setChats } from "./store/chat/chats.reducer";
 import { login } from "./store/user/user.reducer"
 import { RootState } from "./store/store";
+import { LoginSignup } from "./components/LoginSignup";
 
 export function App() {
   const dispatch = useDispatch()
   const chats = useSelector((state: RootState) => state.chats.chats)
   const loggedInUser = useSelector((state: RootState) => state.user.user)
+  const isLoggedInUser = useSelector((state: RootState) => state.user.isAuthenticated)
+  const [isLoggedInUserState, setIsLoggedInUserState] = useState<Boolean>(false)
 
   useEffect(() => {
 
@@ -40,13 +42,19 @@ export function App() {
       console.error("WebSocket error:", error);
     };
 
-    appLogin()
-
+    const user = userService.loginFromToken()
+    if (user) {
+      dispatch(login(user))
+    }
 
     return () => {
       ws.close();
     };
   }, []);
+
+  useEffect(() => {
+    setIsLoggedInUserState(isLoggedInUser)
+  }, [isLoggedInUser])
 
   useEffect(() => {
     if (loggedInUser) {
@@ -63,40 +71,23 @@ export function App() {
       console.error("Failed to fetch chats", error)
     }
   }
-
-
-  async function appLogin() {
-    try {
-      const userDto = {
-        email: 'almogj1998@gmail.com',
-        password: 'Aa1234'
-      }
-      const user = await loginUser(userDto)
-      console.log(user);
-
-      dispatch(login(user));
-    } catch (error) {
-      console.error("Failed to fetch user", error)
-    }
-  }
-
   async function getChats() {
     const result = await chatService.query();
     return result
   }
-  async function loginUser(loginDto: LoginDto): Promise<UserDto> {
-    const result = await userService.login(loginDto);
-    return result
-  }
 
-  return <div className="app">
+  return <div className="app" >
     <Aside />
-    <div className="chats">
-      <ChatList />
-      <ChatComp />
-    </div>
+    {isLoggedInUserState ?
+      <div className="chats">
+        <ChatList />
+        <ChatComp />
+      </div> :
+      <LoginSignup />}
     <ChatDetails />
   </div >
+
+
 
 }
 

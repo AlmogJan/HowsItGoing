@@ -1,0 +1,15 @@
+.chat-list {
+  padding: 1.5rem;
+}
+.chat-list-headline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-list-search-bar {
+  margin-block: 1rem;
+}
+.chat-list-header {
+  @include headline(1.25rem);
+}

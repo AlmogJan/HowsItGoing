@@ -74,38 +74,55 @@ function edit(id: string, updatedUser: PutUserDto) {
     return false;
 }
 
-function signup(signupDto: SignupDto) {
+function signup(signupDto: SignupDto): { status: number, message: string, isError: boolean } {
+    const cleanEmail = signupDto.email.trim().toLowerCase();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isValidEmail = emailRegex.test(signupDto.email);
+    const isValidEmail = emailRegex.test(cleanEmail);
 
     // Password validation: Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
     const isValidPassword = passwordRegex.test(signupDto.password);
 
     if (!isValidEmail) {
-        throw {
+        return {
+            isError: true,
             status: 400,
             message: 'Invalid email'
         }
     }
 
     if (!isValidPassword) {
-        throw {
+        return {
+            isError: true,
             status: 400,
             message: 'Invalid password'
         }
     }
 
+    if (Object.values(users).map(user => user.email).includes(cleanEmail)) {
+        return {
+            isError: true,
+            status: 400,
+            message: 'Email already exists'
+        }
+    }
+
     const newUser: User = {
         id: utilService.makeId(),
-        email: signupDto.email,
+        email: cleanEmail,
         password: signupDto.password,
         authLevel: AuthLevel.User,
-        name: signupDto.name,
-        displayName: signupDto.displayName,
+        name: signupDto.name.trim(),
+        displayName: signupDto.displayName.trim(),
         profilePicture: signupDto.profilePicture
     }
     users[newUser.id] = newUser;
+
+    return {
+        isError: false,
+        status: 201,
+        message: "User created"
+    }
 }
 
 function login(loginDto: LoginDto) {

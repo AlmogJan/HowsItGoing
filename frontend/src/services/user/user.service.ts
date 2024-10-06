@@ -1,14 +1,17 @@
 import axios from "axios"
-import { LoginDto, PutUserDto, SignupDto, UserDto } from "./user.dto"
+import { LoginDto, PutUserDto, SignupDto, SignupResponse, UserDto } from "./user.dto"
 import { User } from "./user.entity"
 import { httpService } from "../http.service"
 import { jwtDecode } from 'jwt-decode'
+import { Token } from "@mui/icons-material"
 
 export const userService = {
     getUser,
     removeUser,
     editUser,
     login,
+    loginFromToken,
+    logoutFromToken,
     signup
 }
 
@@ -36,7 +39,16 @@ async function login(loginDto: LoginDto): Promise<UserDto> {
         throw new Error("Invalid login credentials")
     }
 }
-
-function signup(signupDto: SignupDto) {
-    return axios.post(`http://localhost:3030/api/user/signup`, signupDto)
+function loginFromToken(): UserDto | null {
+    const token = localStorage.getItem('token')
+    return token ? jwtDecode(token) : null
 }
+
+function logoutFromToken() {
+    localStorage.removeItem('token')
+}
+
+async function signup(signupDto: SignupDto): Promise<SignupResponse> {
+    return await axios.post(`http://localhost:3030/api/user/signup`, signupDto)
+}
+

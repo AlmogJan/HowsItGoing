@@ -84,3 +84,7 @@
   font-size: $size;
   font-weight: 400;
 }
+@mixin list-item() {
+  margin-block: 1rem;
+  padding: 0.5rem;
+}

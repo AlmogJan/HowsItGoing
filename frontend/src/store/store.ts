@@ -2,13 +2,17 @@ import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './user/user.reducer'
 import chatsReducer from './chat/chats.reducer'
 import currentChatReducer from './chat/currentChat.reducer'
+import isLoginReducer from './user/loginsignup.reducer'
+import chatDetailsReducer from './chat/chatDetails.reducer'
 // ...
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
         chats: chatsReducer,
-        currentChat: currentChatReducer
+        currentChat: currentChatReducer,
+        isLogin: isLoginReducer,
+        chatDetailsState: chatDetailsReducer,
     }
 })
 

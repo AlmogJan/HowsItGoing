@@ -84,10 +84,10 @@ app.post('/api/user/login', (req: Request, res: Response) => {
 app.post('/api/user/signup', (req: Request, res: Response) => {
     try {
         const signupDto: SignupDto = req.body as SignupDto
-        userService.signup(signupDto)
-        res.status(201).send({ message: 'User created' });
+        const retVal = userService.signup(signupDto)
+        res.status(retVal.status).send(retVal);
     } catch (err: any) {
-        res.status(err.status).send({ message: err.message })
+        res.status(err.status).send({ isError: true, status: err.status, message: err.message })
     }
 })
 

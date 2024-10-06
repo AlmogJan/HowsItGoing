@@ -1,5 +1,10 @@
 import { AuthLevel } from "./user.entity"
 
+export interface SignupResponse {
+    status: number,
+    message: string,
+    isError: boolean
+}
 export interface SignupDto {
     email: string,
     password: string,

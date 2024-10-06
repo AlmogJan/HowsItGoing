@@ -1,6 +1,7 @@
 export const utilService = {
     formatDate,
-    formatHour
+    formatHour,
+    getTxtToShow
 }
 
 function formatHour(timestamp: number): string {
@@ -12,4 +13,12 @@ function formatDate(timestamp: number): string {
     return new Date(timestamp).toLocaleDateString([], {
         day: "numeric", month: "short"
     })
+}
+
+function getTxtToShow(txt: string, length: number) {
+    if (txt.length < 1) return ""
+    if (txt && txt.length <= length) return txt;
+    else {
+        return txt?.substring(0, length) + "...";
+    }
 }

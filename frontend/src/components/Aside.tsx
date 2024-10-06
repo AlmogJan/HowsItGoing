@@ -3,7 +3,6 @@ import { RootState } from "../store/store"
 import { Avatar } from "@mui/material"
 
 export function Aside() {
-    const currChat = useSelector((state: RootState) => state.currentChat.chat)
 
     return <div className="aside flex column space-between">
         <div>
