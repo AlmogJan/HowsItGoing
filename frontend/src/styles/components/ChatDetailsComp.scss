@@ -1,0 +1,33 @@
+.chat-details-comp {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-block: 2rem;
+}
+
+.chat-details-img {
+  height: 8rem;
+  width: 8rem;
+  border: 1px solid blue;
+  border-radius: 50%;
+  margin-block-end: 1.5rem;
+}
+
+.chat-details-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  margin-block-end: 1.5rem;
+  font-size: 1.25em;
+}
+.chat-details-number-members {
+  @include secondary-text(0.75rem);
+  margin-block-end: 1.5rem;
+}
+
+.chat-desc {
+  display: flex;
+  align-items: center;
+}

@@ -4,7 +4,7 @@ import { Button, Menu, MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import { userService } from "../services/user/user.service";
 import { AuthLevel, User } from "../services/user/user.entity";
-import { setDetails, setEdit, setOpenTrue } from "../store/chat/chatDetails.reducer";
+import { setDetails, setOpenTrue } from "../store/chat/chatDetails.reducer";
 import { chatService } from "../services/chat/chat.service";
 
 
@@ -36,14 +36,11 @@ export function ChatTitle() {
     return currentChat ? <div className="chat-title">
         <div className="chat-title-container">
             <span className="chat-name">{currentChat?.name}</span>
-            <span className="chat-details-number-members">{currentChatId ? `${currentChat?.usersNumber} Members` : ""}</span>
-
         </div>
         <div className="chat-title-panel">
             <button className="svg-button">
                 <img src="https://res.cloudinary.com/do4agaebw/image/upload/v1725364215/search_vmdqno.svg" alt="" />
             </button>
-
             <Button
                 id="demo-positioned-button"
                 aria-controls={open ? 'demo-positioned-menu' : undefined}
@@ -74,11 +71,6 @@ export function ChatTitle() {
                         dispatch(setOpenTrue())
                         dispatch(setDetails())
                     }}>Chat info</MenuItem>
-                    <MenuItem onClick={() => {
-                        handleClose
-                        dispatch(setOpenTrue())
-                        dispatch(setEdit())
-                    }}>Edit Chat</MenuItem>
                     <MenuItem
                         onClick={() => {
                             handleClose
@@ -107,7 +99,6 @@ export function ChatTitle() {
                         dispatch(setDetails())
                     }}>Chat info</MenuItem>
                 </Menu>
-
             }
         </div>
     </div > : <></>

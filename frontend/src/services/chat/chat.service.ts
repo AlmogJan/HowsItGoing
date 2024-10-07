@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ChatDto } from "./chat.dto"
+import { ChatDto } from "./ChatDto"
 import { MessageDto } from "../messages/Message.dto"
 import { Chat } from "./chat.entity"
 import { httpService } from "../http.service"
