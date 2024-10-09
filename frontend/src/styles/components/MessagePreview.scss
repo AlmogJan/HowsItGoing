@@ -1,0 +1,8 @@
+.message-preview {
+  border-bottom: 1px solid $hover-color;
+  padding-block: 1rem;
+}
+
+.message-preview-hovered {
+  background-color: $hover-color;
+}

@@ -1,6 +1,6 @@
 .app {
   display: grid;
-  grid-template-columns: 2fr 12fr 5fr;
+  grid-template-columns: 1fr 12fr 5fr;
   grid-template-rows: 1fr;
   grid-auto-columns: 1fr;
   grid-auto-rows: 1fr;
@@ -15,6 +15,10 @@
 .aside {
   grid-area: aside;
   background-color: $background-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
 }
 
 .chats {

@@ -57,6 +57,10 @@
   }
 }
 
+.primary-button {
+  @include primary-button();
+}
+
 .text-input {
   @include text-input();
 }

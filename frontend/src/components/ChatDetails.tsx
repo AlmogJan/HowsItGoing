@@ -1,21 +1,27 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { useEffect, useState } from "react";
-import { ChatDetailsContent, setOpenFalse } from "../store/chat/chatDetails.reducer";
+import { setOpenFalse } from "../store/chat/chatDetails.reducer";
 import { ChatDetailsComp } from "./ChatDetailsComp";
-import { AddChatComp } from "./AddChatComp";
+import { SearchInChat } from "./SearchInChat";
+import { chatDetailsDesc } from "../translations/ChatDetails.translations";
+import { ChatDetailsContent } from "../enums/chat.enum";
 
 export function ChatDetails() {
-    const currentChatId = useSelector((state: RootState) => state.currentChat.chatId)
     const chatDetailsState = useSelector((state: RootState) => state.chatDetailsState)
-    const chats = useSelector((state: RootState) => state.chats.chats)
-    const isLoggedInUser = useSelector((state: RootState) => state.user.isAuthenticated)
+    const loggedInUser = useSelector((state: RootState) => state.user)
     const dispatch = useDispatch()
     const [isLoggedInUserState, setIsLoggedInUserState] = useState<Boolean>(false)
-    const currentChat = currentChatId ? chats[currentChatId] : undefined
+
+    const componentDisplayMapping: Record<ChatDetailsContent, JSX.Element> = {
+        [ChatDetailsContent.None]: <></>,
+        [ChatDetailsContent.Details]: <ChatDetailsComp />,
+        [ChatDetailsContent.Search]: <SearchInChat />
+    }
+
     useEffect(() => {
-        setIsLoggedInUserState(isLoggedInUser)
-    }, [isLoggedInUser])
+        setIsLoggedInUserState(loggedInUser.isAuthenticated)
+    }, [loggedInUser])
 
     return <div className="chat-details">
         {isLoggedInUserState ?
@@ -29,13 +35,11 @@ export function ChatDetails() {
                         <img src="https://res.cloudinary.com/do4agaebw/image/upload/v1725364214/back_kd4mm9.svg" alt="" />
                     </button>
                     <span>
-                        {chatDetailsState.compTitle}
+                        {chatDetailsDesc[chatDetailsState.content]}
                     </span>
                 </div >
                 <div>
-                    {chatDetailsState.content === ChatDetailsContent.Details ?
-                        <ChatDetailsComp /> : <AddChatComp />
-                    }
+                    {componentDisplayMapping[chatDetailsState.content]}
                 </div>
             </>
             :
@@ -43,4 +47,3 @@ export function ChatDetails() {
         }
     </div>
 }
-

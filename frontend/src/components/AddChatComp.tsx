@@ -6,15 +6,15 @@ import { chatService } from "../services/chat/chat.service";
 export function AddChatComp() {
     const [newChatName, setNewChatName] = useState<string>('')
     const [newChatDesc, setNewChatDesc] = useState<string>('')
-    return <div>
+    return <div className="add-chat-comp">
         <Insertimg />
-        <div>
-            <input type="text" value={newChatName} placeholder="Group Chat Name" onChange={(ev) => setNewChatName(ev.target.value)} />
+        <div className="text-input-container">
+            <input className="text-input" type="text" value={newChatName} placeholder="Group Chat Name" onChange={(ev) => setNewChatName(ev.target.value)} />
         </div>
-        <div>
-            <input type="text" value={newChatDesc} placeholder="Group Chat description" onChange={(ev) => setNewChatDesc(ev.target.value)} />
+        <div className="text-input-container">
+            <input className="text-input" type="text" value={newChatDesc} placeholder="Group Chat description" onChange={(ev) => setNewChatDesc(ev.target.value)} />
         </div>
-        <button onClick={() => {
+        <button className="primary-button" onClick={() => {
             const addChatDto: ChatDto = {
                 name: newChatName,
                 description: newChatDesc,

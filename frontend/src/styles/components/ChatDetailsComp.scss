@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   padding-block: 2rem;
 }
 
@@ -22,6 +23,10 @@
   margin-block-end: 1.5rem;
   font-size: 1.25em;
 }
+
+.chat-details-name {
+}
+
 .chat-details-number-members {
   @include secondary-text(0.75rem);
   margin-block-end: 1.5rem;

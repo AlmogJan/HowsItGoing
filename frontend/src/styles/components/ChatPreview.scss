@@ -1,7 +1,26 @@
 .chat-preview {
   display: flex;
   align-items: center;
-  padding-inline: 0;
+  padding-inline: 16px;
+  border-radius: 16px;
+}
+.css-17o22dy-MuiAvatar-root {
+  height: 3.25rem !important;
+  width: 3.25rem !important;
+  margin-inline-end: 0.5rem !important;
+}
+.chat-preview-deatils-container {
+  display: flex;
+  flex-direction: column;
 }
 .chat-preview-name {
+  @include text(0.9rem);
+}
+
+.chat-preview-last-message {
+  @include secondary-text(0.75rem);
+}
+
+.chat-preview-hovered {
+  background-color: $hover-color;
 }

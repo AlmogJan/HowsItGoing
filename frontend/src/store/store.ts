@@ -4,6 +4,7 @@ import chatsReducer from './chat/chats.reducer'
 import currentChatReducer from './chat/currentChat.reducer'
 import isLoginReducer from './user/loginsignup.reducer'
 import chatDetailsReducer from './chat/chatDetails.reducer'
+import chatListReducer from './chat/chatList.reducer'
 // ...
 
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
         currentChat: currentChatReducer,
         isLogin: isLoginReducer,
         chatDetailsState: chatDetailsReducer,
+        chatListState: chatListReducer,
     }
 })
 

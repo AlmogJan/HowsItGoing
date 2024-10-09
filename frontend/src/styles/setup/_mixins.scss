@@ -37,6 +37,15 @@
   border: none;
 }
 
+@mixin primary-button() {
+  padding: 0.5rem;
+  height: max-content;
+  width: max-content;
+  background-color: $product-color;
+  border: none;
+  border-radius: 48px;
+}
+
 @mixin button-svg() {
   height: 1.5rem;
   width: 1.5rem;

@@ -1,27 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ChatDetailsContent } from "../../enums/chat.enum";
 export interface ChatDetailsState {
     isOpen: boolean,
     content: ChatDetailsContent
-    compTitle: string,
 }
-
-export enum ChatDetailsContent {
-    Details,
-    Add
-}
-
-export const chatDetailsDesc: Record<string, ChatDetailsContent> = {
-    "Chat Details": ChatDetailsContent.Details,
-    "Add New Chat": ChatDetailsContent.Add
-
-}
-
-const chatDetailsDescArr = Object.keys(chatDetailsDesc)
 
 const initialState: ChatDetailsState = {
     isOpen: false,
-    content: ChatDetailsContent.Details,
-    compTitle: chatDetailsDescArr[ChatDetailsContent.Details]
+    content: ChatDetailsContent.None,
 }
 
 export const chatDetailsSlice = createSlice({
@@ -31,27 +17,19 @@ export const chatDetailsSlice = createSlice({
         setOpenTrue: (state) => {
             state.isOpen = true
             console.log('set open true');
-
         },
         setOpenFalse: (state) => {
             state.isOpen = false
-            console.log('set open false');
-
+            state.content = ChatDetailsContent.None;
         },
         setDetails: (state) => {
             state.content = ChatDetailsContent.Details
-            state.compTitle = chatDetailsDescArr[ChatDetailsContent.Details]
-            console.log('set details');
-
         },
-        setAddChat: (state) => {
-            state.content = ChatDetailsContent.Add
-            state.compTitle = chatDetailsDescArr[ChatDetailsContent.Add]
-            console.log('set Add');
-
+        setSearchInChat: (state) => {
+            state.content = ChatDetailsContent.Search
         }
     }
 })
 
-export const { setOpenTrue, setOpenFalse, setDetails, setAddChat } = chatDetailsSlice.actions
+export const { setOpenTrue, setOpenFalse, setDetails, setSearchInChat } = chatDetailsSlice.actions
 export default chatDetailsSlice.reducer
