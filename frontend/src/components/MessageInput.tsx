@@ -15,9 +15,9 @@ export function MessageInput() {
             setMsgToSend('')
         }
     }
-    return <div className="message-input-container message-input">
-        <div className="text-input-container ">
-            <input className="text-input" type="text" placeholder="type message" value={msgToSend} onChange={(ev) => setMsgToSend(ev.target.value)} />
+    return <div className="message-input-comp">
+        <div className="text-input-container message-input-container ">
+            <input className="text-input message-input" type="text" placeholder="type message" value={msgToSend} onChange={(ev) => setMsgToSend(ev.target.value)} />
             <button className="svg-button" onClick={() => {
                 if (currentChatId) {
                     postMessage({

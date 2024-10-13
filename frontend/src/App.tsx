@@ -11,12 +11,15 @@ import { setChats } from "./store/chat/chats.reducer";
 import { login } from "./store/user/user.reducer"
 import { RootState } from "./store/store";
 import { LoginSignup } from "./components/LoginSignup";
+import { ChatDetailsContent } from "./enums/chat.enum";
 
 export function App() {
   const dispatch = useDispatch()
   const chats = useSelector((state: RootState) => state.chats.chats)
   const loggedInUser = useSelector((state: RootState) => state.user.user)
   const isLoggedInUser = useSelector((state: RootState) => state.user.isAuthenticated)
+  const chatDetailsState = useSelector((state: RootState) => state.chatDetailsState)
+
   const [isLoggedInUserState, setIsLoggedInUserState] = useState<Boolean>(false)
 
   useEffect(() => {
@@ -76,10 +79,10 @@ export function App() {
     return result
   }
 
-  return <div className="app" >
+  return <div className={`app ${chatDetailsState.content === ChatDetailsContent.None ? 'no-details' : ''}`} >
     <Aside />
     {isLoggedInUserState ?
-      <div className="chats">
+      <div className={`chats ${chatDetailsState.content === ChatDetailsContent.None ? 'no-details' : ''}`}>
         <ChatList />
         <ChatComp />
       </div> :

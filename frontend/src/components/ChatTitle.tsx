@@ -72,7 +72,7 @@ export function ChatTitle() {
                     }}
                 >
                     <MenuItem onClick={() => {
-                        handleClose
+                        handleClose()
                         dispatch(setOpenTrue())
                         dispatch(setDetails())
                     }}>Chat info</MenuItem>
@@ -81,7 +81,13 @@ export function ChatTitle() {
                             handleClose
                             currentChatId && chatService.removeChat(currentChatId)
                         }}
-                    >remove Chat</MenuItem>
+                    >Remove chat</MenuItem>
+                    <MenuItem
+                        onClick={() => {
+                            handleClose()
+                            console.log('chat pinned', currentChatId);
+                        }}
+                    >Pin Chat</MenuItem>
                 </Menu> :
                 <Menu
                     id="demo-positioned-menu"

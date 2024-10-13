@@ -10,6 +10,10 @@
   height: 100%;
   background-color: $background-color;
   overflow: hidden;
+  &.no-details {
+    grid-template-columns: 1fr 12fr;
+    grid-template-areas: "aside chats";
+  }
 }
 
 .aside {
@@ -33,6 +37,9 @@
   border: none;
   border-radius: 2rem;
   overflow: hidden;
+  &.no-details {
+    margin-inline-end: 1rem;
+  }
 }
 .chat-list {
   padding: 1rem;
@@ -55,8 +62,19 @@
 }
 .messages {
   grid-area: 2 / 1 / 3 / 2;
+  overflow-y: auto; /* Enable scrolling in the messages area */
+  padding: 1rem;
+  background-color: $secondary-color;
+  height: 75vh; /* Make it take the remaining space */
+  scroll-behavior: smooth; /* Enable smooth scroll when new messages are added */
+  .messages-ref {
+    height: 1px;
+    visibility: hidden;
+  }
 }
-.message-input {
+.message-input-comp {
+  display: flex;
+  align-items: center;
   grid-area: 3 / 1 / 4 / 2;
 }
 .chat-details {

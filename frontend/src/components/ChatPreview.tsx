@@ -43,7 +43,7 @@ export function ChatPreview({ chat }: ChatPreviewProps) {
         <Avatar alt={`${chat.name}`} />
         <div className="chat-preview-deatils-container">
             <span className="chat-preview-name">{utilService.getTxtToShow(chat.name, 20)}</span>
-            <span className="chat-preview-last-message">{lastMessageUser}: {lastMessageContent && utilService.getTxtToShow(lastMessageContent, 10) || "No messages yet"}</span>
+            <span className="chat-preview-last-message">{lastMessageUser && `${lastMessageUser}:` || ''} {lastMessageContent && utilService.getTxtToShow(lastMessageContent, 10) || "No messages yet"}</span>
         </div>
     </div>
 }

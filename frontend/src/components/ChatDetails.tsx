@@ -23,7 +23,7 @@ export function ChatDetails() {
         setIsLoggedInUserState(loggedInUser.isAuthenticated)
     }, [loggedInUser])
 
-    return <div className="chat-details">
+    return <div className={`${chatDetailsState.content !== ChatDetailsContent.None ? "chat-details" : "chat-details-hidden"}`}>
         {isLoggedInUserState ?
             <>
                 <div className="chat-details-header">
@@ -32,7 +32,7 @@ export function ChatDetails() {
                             dispatch(setOpenFalse())
                         }}
                     >
-                        <img src="https://res.cloudinary.com/do4agaebw/image/upload/v1725364214/back_kd4mm9.svg" alt="" />
+                        <img src="https://res.cloudinary.com/do4agaebw/image/upload/v1728477579/svg_xml_base64_PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgaGVpZ2h0PSIyNCIgd2lkdGg9IjI0IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0IiBjbGFzcz0iIiBmaWxsPSJjdXJyZW50Q29sb3IiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZ_q7tucb.svg" alt="" />
                     </button>
                     <span>
                         {chatDetailsDesc[chatDetailsState.content]}

@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Insertimg } from "./InsertImg";
 import { ChatDto } from "../services/chat/ChatDto";
 import { chatService } from "../services/chat/chat.service";
+import { useDispatch } from "react-redux";
+import { setChatList } from "../store/chat/chatList.reducer";
 
 export function AddChatComp() {
+    const dispatch = useDispatch()
     const [newChatName, setNewChatName] = useState<string>('')
     const [newChatDesc, setNewChatDesc] = useState<string>('')
     return <div className="add-chat-comp">
@@ -21,6 +24,7 @@ export function AddChatComp() {
                 image: 'iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEX///+/v7+jQ3Y5AAAADklEQVQI12P4AIX8EAgALgAD/aNpbtEAAAAASUVORK5CYII'
             }
             chatService.addChat(addChatDto)
+            dispatch(setChatList())
         }}>
             Create New Chat
         </button>
